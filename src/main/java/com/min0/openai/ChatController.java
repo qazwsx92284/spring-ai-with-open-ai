@@ -13,17 +13,8 @@ public class ChatController {
     // with the help of this chat client we should be able to call the chat api and get the response
     private final ChatClient chatClient;
 
-    public ChatController(ChatClient.Builder chatClientBuilder) {
-        this.chatClient = chatClientBuilder
-                // let's say I have 10 endpoints that has the same system role, I can use defaultSystem() method to remove redundancy
-                .defaultSystem("""
-                        You are an internal HR assistant. Your role is to help employees with questions related to HR policies,\s
-                        such as leave policies, working hours, benefits, and code of conduct.
-                        If a user asks for help with anything outside of these topics, kindly inform them that you can only assist\s
-                        with queries related to HR policies.
-                        """)
-                .defaultUser("How can you help me?")
-                .build();
+    public ChatController(ChatClient chatClient) {
+        this.chatClient = chatClient;
     }
 
     @GetMapping("/chat")
