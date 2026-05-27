@@ -23,6 +23,15 @@ public class ChatController {
         how to call LLM model. explain about .prompt(msg): to hold prompt message from the end user,
         .call(): to invoke call to LLM,  .content(): to retrieve response from llm.
          */
-        return chatClient.prompt(message).call().content();
+        return chatClient
+                .prompt() // we can send prompt() with empty param and then specify type of message following like system/user/assistant/function
+                .system("""
+                        You are an internal HR assistant. Your role is to help employees with questions related to HR policies,\s
+                        such as leave policies, working hours, benefits, and code of conduct.
+                        If a user asks for help with anything outside of these topics, kindly inform them that you can only assist\s
+                        with queries related to HR policies.
+                        """)
+                .user(message)
+                .call().content();
     }
 }
