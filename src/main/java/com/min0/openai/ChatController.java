@@ -1,5 +1,6 @@
 package com.min0.openai;
 
+import com.min0.openai.advisor.TokenUsageAuditAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class ChatController {
          */
         return chatClient
                 .prompt() // we can send prompt() with empty param and then specify type of message following like system/user/assistant/function
+                .advisors(new TokenUsageAuditAdvisor()) // configure advisor in the controller method
                 //.user(message) if I don't pass .user(), the defaultUser() above with the default msg will be sent.
                 .call().content();
     }
