@@ -15,7 +15,7 @@ public class ChatClientConfig {
     @Bean
     public ChatClient chatClient(ChatClient.Builder chatClientBuilder) {
         // create chat options object - we can customize the options
-        var options = OpenAiChatOptions.builder().model("gpt-5.4-mini").temperature(0.8).maxCompletionTokens(100);
+        var options = OpenAiChatOptions.builder().model("gpt-5.4-mini").temperature(0.8);
         return chatClientBuilder
                 // set chat options
                 .defaultOptions(options)
