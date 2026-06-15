@@ -1,6 +1,8 @@
 package com.min0.openai;
 
+import com.openai.models.ChatModel;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,8 @@ public class PromptStuffingController {
     public String promptStuffing(@RequestParam("message") String message) {
         return chatClient
                 .prompt()
+                // set chat option inside controller (when we want chat option only for specific controller method)
+                .options(OpenAiChatOptions.builder().model(ChatModel.GPT_5_4_NANO.asString()).temperature(0.7))
                 .system(systemPromptTemplate)
                 .user(message)
                 .call().content();
