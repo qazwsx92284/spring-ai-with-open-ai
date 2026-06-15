@@ -22,14 +22,12 @@ public class ChatClientConfig {
                 // advisor is like a middleware/interceptor for your prompt flow.
                 .defaultAdvisors(List.of(new SimpleLoggerAdvisor(), new TokenUsageAuditAdvisor()))
                 // let's say I have 10 endpoints that has the same system role, I can use defaultSystem() method to remove redundancy
-               /* .defaultSystem("""
+                .defaultSystem("""
                         You are an internal HR assistant. Your role is to help employees with questions related to HR policies,\s
                         such as leave policies, working hours, benefits, and code of conduct.
                         If a user asks for help with anything outside of these topics, kindly inform them that you can only assist\s
                         with queries related to HR policies.
                         """)
-
-                */
                 .defaultUser("How can you help me?")
                 .build();
     }
