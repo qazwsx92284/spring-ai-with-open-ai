@@ -6,6 +6,7 @@ import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.ai.converter.ListOutputConverter;
 import org.springframework.ai.converter.MapOutputConverter;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,15 @@ public class StructuredOutputController {
         Map<String, Object> countryCities = chatClient.prompt().user(message).call()
                 // get city details in the form of map
                 .entity(new MapOutputConverter());
+        return ResponseEntity.ok(countryCities);
+    }
+
+    // mapping ai response to list<POJO> using ParameterizedTypeReference
+    @GetMapping("/chat-bean-list")
+    public ResponseEntity<List<CountryCities>> chatBeanList(@RequestParam("message") String message) {
+        List<CountryCities> countryCities = chatClient.prompt().user(message).call()
+                .entity(new ParameterizedTypeReference<List<CountryCities>>() {
+                });
         return ResponseEntity.ok(countryCities);
     }
 
